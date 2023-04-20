@@ -1,0 +1,71 @@
+from tkinter import *
+import matplotlib.pyplot as plt
+
+def plot_graph():
+    rep = float(reproduction_rate.get())
+    dth = float(death_rate.get())
+    a = float(prey_caught.get())
+    b = float(predator_born.get())
+    t=int(time.get())
+    pred_init=int(pred_init_entry.get())
+    prey_init=int(prey_init_entry.get())
+    lst1=[]
+    lst2=[]
+    lstt=[]
+    for i in range (0,t):
+        lst1.append(prey_init)
+        lst2.append(pred_init)
+        lstt.append(i)
+        prey=prey_init+rep*prey_init-a*pred_init*prey_init
+        pred=pred_init-dth*pred_init+b*a*prey_init*pred_init
+        prey_init=prey
+        pred_init=pred
+        if pred_init<=0 or prey_init<=0:
+            if pred_init<=0:
+                print("the prey have won")
+            elif prey_init<=0:
+                print("theres no more prey, the population will soon die out")
+            break
+            
+    plt.plot(lstt,lst1,'g', label="Prey")
+    plt.plot(lstt,lst2,'r', label="Predator")
+    plt.xlabel("Time")
+    plt.ylabel("Population")
+    plt.legend()
+    plt.show()
+
+root = Tk()
+root.title("Predator-Prey Model")
+
+Label(root, text="Time range:").grid(row=0, column=0)
+time = Entry(root)
+time.grid(row=0, column=1)
+
+Label(root, text="Prey population:").grid(row=1, column=0)
+prey_init_entry = Entry(root)
+prey_init_entry.grid(row=1, column=1)
+
+Label(root, text="Predator population:").grid(row=2, column=0)
+pred_init_entry = Entry(root)
+pred_init_entry.grid(row=2, column=1)
+
+Label(root, text="Reproduction Rate of prey:").grid(row=3, column=0)
+reproduction_rate = Entry(root)
+reproduction_rate.grid(row=3, column=1)
+
+Label(root, text="Death Rate of predators:").grid(row=4, column=0)
+death_rate = Entry(root)
+death_rate.grid(row=4, column=1)
+
+Label(root, text="Prey Caught per Predator (%):").grid(row=5, column=0)
+prey_caught = Entry(root)
+prey_caught.grid(row=5, column=1)
+
+Label(root, text="Predator Born per Prey Caught (%):").grid(row=6, column=0)
+predator_born = Entry(root)
+predator_born.grid(row=6, column=1)
+
+plot_button = Button(root, text="Plot Graph", command=plot_graph)
+plot_button.grid(row=7, column=0, columnspan=2)
+
+root.mainloop()
