@@ -1,4 +1,4 @@
-# GUI-for-Lotka-Volterra-Model-with-2-species
+# GUI-for-Lotka-Volterra-Model-with-2-species(RA2031010020003) BSc Physics
 This is a basic GUI that receives inputs and feeds them into the algorithm which generates a population vs time graph
 to get proper results, please have an extended time range t>5000
 population numbers in the range of thousands
